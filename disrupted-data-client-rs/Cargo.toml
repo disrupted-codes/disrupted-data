@@ -1,0 +1,22 @@
+[package]
+name = "disrupted-data-client-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Placeholder for disrupted data"
+license = "Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "disrupted-data-cli"
+path = "src/main.rs"
+
+[dependencies]
+
+disrupted-data-sdk-rs = {path = "../disrupted-data-sdk-rs"}
+
+libp2p = {workspace = true}
+tokio = {workspace = true}
+
+clap = { version = "4.5.13", features = ["derive"] }
+rustyline = { version = "14.0.0", features = ["derive"] }

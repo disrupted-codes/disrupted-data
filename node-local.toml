@@ -1,0 +1,5 @@
+ip_address = "127.0.0.1"
+port = "6969"
+node_key_location = "C:\\Nostr\\keys\\bootstrap-20240220.key"
+bootstrap_nodes = { 12D3KooWKv1Ykf4aUWTSP9x7Pk1mGpiQZWCrTfJpMnUt34Btie7g = '170.64.140.33' } # <- DO NOT CHANGE bootstrap_nodes (This allows your node to bootstrap and join the network)
+log_file = "C:\\Nostr\\disrupted-data.log"

@@ -1,0 +1,18 @@
+[package]
+name = "disrupted-data-sdk-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Placeholder for disrupted data"
+license = "Apache-2.0"
+
+
+[dependencies]
+
+libp2p = {workspace = true}
+tokio = {workspace = true}
+bytes = {workspace = true}
+serde = {workspace = true}
+futures = "0.3.30"
+secp256k1 = { version = "0.29.0", features = ["rand-std"] }
+sha2 = "0.10.8"
+hex = "0.4.3"

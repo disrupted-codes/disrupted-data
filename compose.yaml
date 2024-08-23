@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  bootstrap:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      swarm-net:
+        ipv4_address: 189.90.0.2
+    volumes:
+      - C:/Nostr/keys:/keys/
+    environment:
+      - IP_ADDRESS=189.90.0.2
+      - PORT=6969
+      - NODE_KEY_LOCATION=/keys/bootstrap.key
+      - BOOTSTRAP_NODES={12D3KooWCHaGByFAkkHvMfLzZUMV8Z7LR3HCwQP1gqUWUUnUtXUf=189.90.0.2}
+      - LOG_FILE=/node.log
+    ports:
+      - "6969:6969"
+
+  node-one:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      swarm-net:
+        ipv4_address: 189.90.0.3
+    environment:
+      - IP_ADDRESS=189.90.0.3
+      - PORT=6969
+      - NODE_KEY_LOCATION=/keys/node-one.key
+      - BOOTSTRAP_NODES={12D3KooWCHaGByFAkkHvMfLzZUMV8Z7LR3HCwQP1gqUWUUnUtXUf=189.90.0.2}
+      - LOG_FILE=/node.log
+    volumes:
+      - C:/Nostr/keys:/keys/
+    ports:
+      - "6970:6969"
+
+networks:
+  swarm-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 189.90.0.0/16

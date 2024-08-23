@@ -1,0 +1,5 @@
+ip_address = "${IP_ADDRESS}"
+port = "${PORT}"
+node_key_location = "${NODE_KEY_LOCATION}"
+bootstrap_nodes = "${BOOTSTRAP_NODES}"
+log_file = "${LOG_FILE}"
