@@ -1,7 +1,6 @@
 use serde::{Deserialize, Deserializer, Serialize};
 use serde::de::{SeqAccess, Visitor};
 
-pub mod event_handler_bk;
 pub mod event_handler;
 
 type Sec256k1PublicKey = [u8; 32];
