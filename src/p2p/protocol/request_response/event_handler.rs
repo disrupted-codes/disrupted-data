@@ -95,17 +95,34 @@ impl RequestHandler {
                     }
                 }
                 Some(FromDisruptedDataSwarmEvent::UserNotFound(inbound_request_id, mut new_user)) => {
-                    let previous_event = self.put_requests.remove(&inbound_request_id).unwrap();
-                    if let FromDisruptedDataSwarmEvent::NewRequest(inbound_request_id, action) = previous_event {
-                        let record = action.clone().get_record().unwrap();
-                        let record_key_hex = encode(record.clone().key);
+                    let previous_event_option = self.put_requests.remove(&inbound_request_id);
+                    match previous_event_option {
+                        None => {
+                            let get_request_option = self.get_requests.remove(&inbound_request_id);
+                            match get_request_option {
+                                None => {
+                                    println!("Could not find get response channel");
+                                    self.to_swarm_event_sender.send(SendResponse(inbound_request_id, ActionResult::Failure("System error: could not find get response channel".to_string()))).await.unwrap();
+                                }
+                                Some(get_request) => {
+                                    self.to_swarm_event_sender.send(SendResponse(inbound_request_id, ActionResult::Failure("Data not found for user".to_string()))).await.unwrap();
+                                }
+                            }
+                        }
+                        Some(previous_event) => {
+                            if let FromDisruptedDataSwarmEvent::NewRequest(inbound_request_id, action) = previous_event {
+                                let record = action.clone().get_record().unwrap();
+                                let record_key_hex = encode(record.clone().key);
 
-                        let record_key = RecordKey::new(&record_key_hex.clone());
-                        let data_record = Record::new(record_key.clone(), record.clone().value);
-                        new_user.add_data_record_keys(record_key_hex);
+                                let record_key = RecordKey::new(&record_key_hex.clone());
+                                let data_record = Record::new(record_key.clone(), record.clone().value);
+                                new_user.add_data_record_keys(record_key_hex);
 
-                        self.put_requests.insert(inbound_request_id, FromDisruptedDataSwarmEvent::UserNotFound(inbound_request_id, new_user.clone()));
-                        self.to_swarm_event_sender.send(Put(inbound_request_id, (new_user.clone(), data_record))).await.unwrap()
+                                self.put_requests.insert(inbound_request_id, FromDisruptedDataSwarmEvent::UserNotFound(inbound_request_id, new_user.clone()));
+                                self.to_swarm_event_sender.send(Put(inbound_request_id, (new_user.clone(), data_record))).await.unwrap()
+                            }
+
+                        }
                     }
                 }
                 Some(FromDisruptedDataSwarmEvent::PutUserSuccess) => {
