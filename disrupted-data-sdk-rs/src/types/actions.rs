@@ -154,7 +154,9 @@ pub struct PutRequest {
 
 impl PutRequest {
     pub fn to_record(mut self) -> Record {
-        Record::new(RecordKey::new(&self.record_key.into_bytes()), self.record_value.as_bytes().to_vec())
+        let mut record_key_bytes: Vec<u8> = self.user_public_key.clone();
+        record_key_bytes.append(&mut self.record_key.into_bytes());
+        Record::new(RecordKey::new(&encode(record_key_bytes)), self.record_value.as_bytes().to_vec())
     }
 }
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -165,7 +167,9 @@ pub struct GetRequest {
 }
 
 impl GetRequest {
-    pub fn to_record_key(&self) -> RecordKey {
-        RecordKey::new(&encode(&self.record_key.as_bytes().to_vec()))
+    pub fn to_record_key(mut self) -> RecordKey {
+        let mut record_key_bytes: Vec<u8> = self.user_public_key.clone();
+        record_key_bytes.append(&mut self.record_key.into_bytes());
+        RecordKey::new(&encode(record_key_bytes))
     }
 }
