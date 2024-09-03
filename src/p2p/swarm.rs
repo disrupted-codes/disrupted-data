@@ -144,7 +144,7 @@ impl DisruptedDataSwarm {
                         SwarmEvent::Behaviour(disrupted_data::Event::Kademlia(kad::Event::OutboundQueryProgressed {id, result, ..})) => {
                             match result {
                                 QueryResult::GetRecord(Ok(kad::GetRecordOk::FoundRecord(kad::PeerRecord {record, peer}))) => {
-                                    println!("GetRecordOK receieved for query: {:?}", id);
+                                    println!("GetRecordOK received for query: {:?}", id);
                                     let mut get_queries_guard = self.get_queries.lock().unwrap();
                                     if let Some(to_swarm_event) = get_queries_guard.remove(&id){
                                         if let GetUser(inbound_request_id, user_key) = to_swarm_event.clone() {
@@ -199,7 +199,7 @@ impl DisruptedDataSwarm {
                             }
 
                         }
-                        SwarmEvent::Behaviour( disrupted_data::Event::Identify(identify::Event::Received { peer_id ,info })) => {
+                        SwarmEvent::Behaviour( disrupted_data::Event::Identify(identify::Event::Received { peer_id ,info,.. })) => {
                             let ip_address = &self.node.ip_address;
 
                             let mut filtered_listening_address: Vec<Multiaddr> = info.listen_addrs.into_iter().filter(|address| !address.to_string().contains(ip_address) ).collect();
