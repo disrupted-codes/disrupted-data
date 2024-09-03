@@ -10,7 +10,7 @@ serde = { version = "1.0.204", features = ["derive"] }
 
 [package]
 name = "disrupted-data"
-version = "0.1.0"
+version = "0.0.1-prototype"
 edition = "2021"
 description = "Placeholder for disrupted data"
 license = "Apache-2.0"

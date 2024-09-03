@@ -1,6 +1,6 @@
 [package]
 name = "disrupted-data-sdk-rs"
-version = "0.1.0"
+version = "0.0.1-prototype"
 edition = "2021"
 description = "Placeholder for disrupted data"
 license = "Apache-2.0"

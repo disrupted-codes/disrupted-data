@@ -1030,7 +1030,7 @@ dependencies = [
 
 [[package]]
 name = "disrupted-data"
-version = "0.1.0"
+version = "0.0.1-prototype"
 dependencies = [
  "bytes",
  "clap",
@@ -1052,7 +1052,7 @@ dependencies = [
 
 [[package]]
 name = "disrupted-data-client-rs"
-version = "0.1.0"
+version = "0.0.1-prototype"
 dependencies = [
  "clap",
  "disrupted-data-sdk-rs",
@@ -1063,7 +1063,7 @@ dependencies = [
 
 [[package]]
 name = "disrupted-data-sdk-rs"
-version = "0.1.0"
+version = "0.0.1-prototype"
 dependencies = [
  "bytes",
  "futures",
