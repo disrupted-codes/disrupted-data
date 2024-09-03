@@ -99,10 +99,15 @@ impl Actions {
     pub fn get_record_key_hex(self) -> Result<String, DisruptedDataError> {
         match self {
             Actions::Put(put_request) => {
-                Ok(encode(put_request.record_key))
+                let mut raw_record_key = put_request.user_public_key.clone();
+                raw_record_key.append(&mut put_request.record_key.into_bytes());
+                Ok(encode(raw_record_key))
             }
             Actions::Get(get_request) => {
-                Ok(encode(get_request.record_key))
+                let mut raw_record_key = get_request.user_public_key.clone();
+                raw_record_key.append(&mut get_request.record_key.into_bytes());
+
+                Ok(encode(raw_record_key))
             }
             Unknown => {
                 Err(DisruptedDataError{message: "Unknown action".to_string()})
