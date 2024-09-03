@@ -29,6 +29,13 @@ The client can be started like so -
 
 If the key does not exist, a new key pair will be generated at the location, if possible.
 
+## TODO
+
+- [ ] Add logging and tracing.
+- [ ] Add merkle tree to support grouping of user data.
+- [ ] disrupted-data Nostr client
+- [ ] Data fragmentation and joining to support.
+- [ ] disrupted-data Git client 
 
 
 
