@@ -1,7 +1,7 @@
 use clap::Parser;
 use rustyline::DefaultEditor;
 
-use disrupted_data_sdk_rs::{Actions, Client};
+use disrupted_data_sdk_rs::{Actions, Client, DisruptedDataError};
 use disrupted_data_sdk_rs::Identity;
 
 use crate::types::Args;
@@ -31,7 +31,16 @@ async fn prompt(mut client: Client, identity: &Identity) {
         let user_input = line.readline("disrupted-data >> ").unwrap();
 
         let user_action: Actions = (user_input, identity).into();
-        client.process_action(user_action).await;
+
+        let action_result = client.process_action(user_action).await;
+        match action_result {
+            Ok(action_result) => {
+                println!("Result: {:?}", action_result)
+            }
+            Err(err) => {
+                println!("Error executing action: {}", err)
+            }
+        }
 
     }
 }

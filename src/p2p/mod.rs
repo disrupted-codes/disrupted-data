@@ -35,23 +35,28 @@ pub enum ToDisruptedDataSwarmEvent {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct User {
     pub key: String,
-    pub data_record_keys: Vec<String>
+    pub data_record_keys: Vec<String>,
 }
 
 impl User {
-
     pub fn new(key: &RecordKey) -> Self {
         Self {
             key: String::from_utf8(key.to_vec()).expect("Invalid key when creating new user"),
-            data_record_keys: vec![]
+            data_record_keys: vec![],
         }
     }
-    pub fn add_data_record_keys(&mut self, data_record_key: String ) {
+    pub fn add_data_record_keys(&mut self, data_record_key: String) {
         self.data_record_keys.push(data_record_key)
     }
 }
 
 impl From<Record> for User {
+    // fn from(value: (Vec<u8>, Record)) -> Self {
+    //     Self {
+    //         key: String::from_utf8(value[1].record.key.to_vec()).expect("Invalid record key"),
+    //         data_record_keys: split_raw_data_record_keys(value[0], value[1].record.value),
+    //     }
+    // }
     fn from(record: Record) -> Self {
         Self{
             key: String::from_utf8(record.key.to_vec()).expect("Invalid user key"),
@@ -76,7 +81,7 @@ fn join_data_record_keys(data_record_keys: Vec<String>) -> Vec<u8> {
     data_record_keys.join("|").into_bytes()
 }
 
-fn split_raw_data_record_keys(raw_data_record_keys: Vec<u8>) -> Vec<String> {
+fn split_raw_data_record_keys( raw_data_record_keys: Vec<u8>) -> Vec<String> {
     let comma_delimited_data_record_keys = String::from_utf8(raw_data_record_keys).expect("Invalid data record keys");
-    comma_delimited_data_record_keys.split('|').map(|data_record_key| {data_record_key.to_string()}).collect()
+    comma_delimited_data_record_keys.split('|').map(|data_record_key| { data_record_key.to_string() }).collect()
 }

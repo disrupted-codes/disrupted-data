@@ -99,10 +99,15 @@ impl Actions {
     pub fn get_record_key_hex(self) -> Result<String, DisruptedDataError> {
         match self {
             Actions::Put(put_request) => {
-                Ok(encode(put_request.record_key))
+                let mut raw_record_key = put_request.user_public_key.clone();
+                raw_record_key.append(&mut put_request.record_key.into_bytes());
+                Ok(encode(raw_record_key))
             }
             Actions::Get(get_request) => {
-                Ok(encode(get_request.record_key))
+                let mut raw_record_key = get_request.user_public_key.clone();
+                raw_record_key.append(&mut get_request.record_key.into_bytes());
+
+                Ok(encode(raw_record_key))
             }
             Unknown => {
                 Err(DisruptedDataError{message: "Unknown action".to_string()})
@@ -154,7 +159,9 @@ pub struct PutRequest {
 
 impl PutRequest {
     pub fn to_record(mut self) -> Record {
-        Record::new(RecordKey::new(&self.record_key.into_bytes()), self.record_value.as_bytes().to_vec())
+        let mut record_key_bytes: Vec<u8> = self.user_public_key.clone();
+        record_key_bytes.append(&mut self.record_key.into_bytes());
+        Record::new(RecordKey::new(&encode(record_key_bytes)), self.record_value.as_bytes().to_vec())
     }
 }
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -165,7 +172,9 @@ pub struct GetRequest {
 }
 
 impl GetRequest {
-    pub fn to_record_key(&self) -> RecordKey {
-        RecordKey::new(&encode(&self.record_key.as_bytes().to_vec()))
+    pub fn to_record_key(mut self) -> RecordKey {
+        let mut record_key_bytes: Vec<u8> = self.user_public_key.clone();
+        record_key_bytes.append(&mut self.record_key.into_bytes());
+        RecordKey::new(&encode(record_key_bytes))
     }
 }
