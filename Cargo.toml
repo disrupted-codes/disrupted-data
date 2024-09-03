@@ -2,7 +2,7 @@
 members = [ "disrupted-data-client-rs", "disrupted-data-sdk-rs"]
 
 [workspace.dependencies]
-libp2p = { version = "0.53.2", features = ["full"] }
+libp2p = { version = "0.54.1", features = ["full"] }
 tokio = { version = "1.39.2", features = ["full"] }
 bytes = { version = "1.7.1", features = ["std", "serde"] }
 serde = { version = "1.0.204", features = ["derive"] }
