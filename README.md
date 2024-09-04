@@ -31,6 +31,7 @@ If the key does not exist, a new key pair will be generated at the location, if 
 
 ## TODO
 
+- [ ] Add Disrupted data behaviour.
 - [ ] Add logging and tracing.
 - [ ] Add merkle tree to support grouping of user data.
 - [ ] disrupted-data Nostr client

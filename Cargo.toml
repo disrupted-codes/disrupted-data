@@ -26,7 +26,6 @@ serde = {workspace = true}
 disrupted-data-sdk-rs = {path = "./disrupted-data-sdk-rs"}
 toml = "0.8.16"
 tracing = "0.1.40"
-tracing-futures = "0.2.5"
 tracing-subscriber = "0.3.18"
 uuid = { version = "1.10.0", features = ["v4"] }
 clap = { version = "4.5.11", features = ["derive"] }
