@@ -963,9 +963,11 @@ dependencies = [
  "bytes",
  "clap",
  "disrupted-data-sdk-rs",
+ "either",
  "hex",
  "libp2p",
  "libp2p-stream",
+ "log",
  "secp256k1",
  "serde",
  "sha2 0.10.8",
@@ -1000,6 +1002,7 @@ dependencies = [
  "serde",
  "sha2 0.10.8",
  "tokio",
+ "void",
 ]
 
 [[package]]

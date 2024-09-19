@@ -3,10 +3,8 @@ use sha2::Digest;
 
 use disrupted_data_sdk_rs::{ActionResult, Actions};
 
-pub(crate) mod disrupted_data;
-pub(crate) mod request_response;
 
-mod kad;
+pub(crate) mod disrupted_data;
 
 pub(crate) enum EventHandlerOutcome {
     Ok,
