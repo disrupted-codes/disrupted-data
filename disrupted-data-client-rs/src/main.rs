@@ -10,9 +10,11 @@ mod types;
 
 #[tokio::main]
 async fn main() {
-    let arg = Args::parse();
+    let mut arg = Args::parse();
     let identity = Identity::new(arg.key);
-    let new_client_result = Client::new(&identity.keypair, "127.0.0.1".to_string(), "6969".to_string());
+    let ip = arg.ip.get_or_insert("127.0.0.1".to_string());
+    let new_client_result = Client::new(&identity.keypair, ip.clone(), "6969".to_string());
+    // let new_client_result = Client::new(&identity.keypair, "127.0.0.1".to_string(), "6969".to_string());
 
     match new_client_result {
         Ok(client) => {

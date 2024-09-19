@@ -8,6 +8,6 @@ pub struct Args {
     pub key: PathBuf,
 
     #[arg(long)]
-    pub node_ip: Option<String>,
+    pub ip: Option<String>,
 
 }
