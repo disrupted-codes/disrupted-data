@@ -1,5 +1,5 @@
 use std::iter;
-
+use std::time::Duration;
 use libp2p::{ping, request_response, StreamProtocol};
 use libp2p::request_response::{json, ProtocolSupport};
 use libp2p::swarm::NetworkBehaviour;
@@ -17,8 +17,8 @@ pub struct UserNodeBehaviour {
 
 impl UserNodeBehaviour {
     pub fn new() -> Self {
-        let protocols = iter::once((StreamProtocol::new("/client/1"), ProtocolSupport::Full));
-        let request_response_behaviour = json::Behaviour::<Actions, ActionResult>::new(protocols, request_response::Config::default());
+        let protocols = iter::once((StreamProtocol::new("/disrupted-data/browser/1"), ProtocolSupport::Full));
+        let request_response_behaviour = json::Behaviour::<Actions, ActionResult>::new(protocols, request_response::Config::default().with_request_timeout(Duration::from_secs(30)));
 
         let ping_behaviour = ping::Behaviour::new(Default::default());
 

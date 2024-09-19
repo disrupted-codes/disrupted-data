@@ -35,7 +35,7 @@ async fn prompt(mut client: Client, identity: &Identity) {
         let action_result = client.process_action(user_action).await;
         match action_result {
             Ok(action_result) => {
-                println!("Result: {:?}", action_result)
+                println!("Response: {:?}", action_result.get_message())
             }
             Err(err) => {
                 println!("Error executing action: {}", err)

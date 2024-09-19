@@ -3,7 +3,6 @@ use libp2p::request_response::InboundRequestId;
 use serde::{Deserialize, Serialize};
 
 use disrupted_data_sdk_rs::{ActionResult, Actions, DisruptedDataError};
-pub use protocol::request_response::event_handler::RequestHandler;
 pub use swarm::DisruptedDataSwarm;
 
 pub mod node;
@@ -47,6 +46,10 @@ impl User {
     }
     pub fn add_data_record_keys(&mut self, data_record_key: String) {
         self.data_record_keys.push(data_record_key)
+    }
+
+    pub(crate) fn contains_data_record_key(&self, key: String) -> bool {
+        self.data_record_keys.contains(&key)
     }
 }
 

@@ -7,7 +7,7 @@ use tokio::sync::mpsc;
 
 use p2p::{FromDisruptedDataSwarmEvent, ToDisruptedDataSwarmEvent};
 
-use crate::p2p::{DisruptedDataSwarm, RequestHandler};
+use crate::p2p::DisruptedDataSwarm;
 use crate::types::Args;
 use crate::types::NodeConfig;
 
@@ -21,9 +21,7 @@ async fn main() {
     let (to_swarm_sender, mut to_swarm_receiver) = mpsc::channel::<ToDisruptedDataSwarmEvent>(50);
 
     let mut swarm = DisruptedDataSwarm::new(get_node_config(), from_swarm_sender.clone(), to_swarm_receiver);
-    let mut request_handler = RequestHandler::new(from_swarm_receiver, to_swarm_sender.clone());
 
-    tokio::spawn(request_handler.process());
     swarm.start().await;
 }
 
