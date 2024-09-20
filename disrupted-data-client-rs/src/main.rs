@@ -33,6 +33,12 @@ async fn prompt(mut client: Client, identity: &Identity) {
         let user_input = line.readline("disrupted-data >> ").unwrap();
 
         let user_action: Actions = (user_input, identity).into();
+        if let Actions::Unknown = user_action {
+            println!("Usage:");
+            println!("put <<Data key>> <<Data value>>");
+            println!("get <<Data key>>");
+            continue;
+        }
 
         let action_result = client.process_action(user_action).await;
         match action_result {
