@@ -1,5 +1,28 @@
 # Disrupted Data
 
+## Trying the prototype browser client
+
+1. Clone the repository
+``` git clone git@github.com:disrupted-codes/disrupted-data.git ```
+
+2. Build client
+```cargo build -p disrupted-data-client-rs```
+
+3. Connect to the node.
+```.\disrupted-data-cli --key /keys/dd-client.key --ip 170.64.140.33 ```
+--key -> Your Secp256k1 keypair. If the key file does not exist, it will be created.
+--ip -> The DHT node to connect to. 170.64.140.33 can be used.
+
+4. Put data
+```put <<Data key>> <<Data value>>```
+Eg. ```put hello world```
+
+5. Get data by key
+```get <<Data key>>```
+Eg. ```get hello```
+
+
+
 There are two main components in this project:
 
 1. Distributed Hash Table (DHT) Node: A node for storing data that can be run by anyone. 
